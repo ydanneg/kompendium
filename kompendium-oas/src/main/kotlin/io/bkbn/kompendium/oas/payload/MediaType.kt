@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MediaType(
-  val schema: ComponentSchema,
+  val schema: ComponentSchema?,
   val examples: Map<String, Example>? = null
 ) {
   @Serializable

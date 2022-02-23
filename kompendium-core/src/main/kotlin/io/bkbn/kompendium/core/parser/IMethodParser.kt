@@ -141,19 +141,25 @@ interface IMethodParser {
     examples: Map<String, Any>
   ): Map<String, MediaType>? {
     val classifier = type.classifier as KClass<*>
-    return if (type != Helpers.UNIT_TYPE && mediaTypes.isNotEmpty()) {
+    return if (mediaTypes.isNotEmpty()) {
       mediaTypes.associateWith {
-        val schema = if (classifier.isSealed) {
-          val refs = classifier.sealedSubclasses
-            .map { it.createType(type.arguments) }
-            .map { ReferencedSchema(it.getReferenceSlug()) }
-          AnyOfSchema(refs)
-        } else {
-          if (config.spec.components.schemas.containsKey(type.getSimpleSlug())) {
-            ReferencedSchema(type.getReferenceSlug())
-          } else {
-            config.bodyCache[type.getSimpleSlug()] ?: error("REEEE")
-          }
+        val schema = when {
+            classifier.isSealed -> {
+              val refs = classifier.sealedSubclasses
+                .map { it.createType(type.arguments) }
+                .map { ReferencedSchema(it.getReferenceSlug()) }
+              AnyOfSchema(refs)
+            }
+            type == Helpers.UNIT_TYPE -> {
+              null
+            }
+            else -> {
+              if (config.spec.components.schemas.containsKey(type.getSimpleSlug())) {
+                ReferencedSchema(type.getReferenceSlug())
+              } else {
+                config.bodyCache[type.getSimpleSlug()] ?: error("REEEE")
+              }
+            }
         }
         MediaType(
           schema = schema,

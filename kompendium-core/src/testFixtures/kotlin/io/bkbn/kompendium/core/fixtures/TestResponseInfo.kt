@@ -74,6 +74,18 @@ object TestResponseInfo {
     responseInfo = testPostResponse,
     requestInfo = testRequest
   )
+  val testPostUnitResponseWithMediaType = PostInfo<Unit, TestRequest, Unit>(
+    summary = "Test post Unit response with media type",
+    description = "Description",
+    responseInfo = ResponseInfo(HttpStatusCode.OK, "No Response"),
+    requestInfo = testRequest
+  )
+  val testPostUnitResponseWithNoMediaType = PostInfo<Unit, TestRequest, Unit>(
+    summary = "Test post Unit response with no media type",
+    description = "Description",
+    responseInfo = ResponseInfo(HttpStatusCode.OK, "No Response", mediaTypes = listOf()),
+    requestInfo = testRequest
+  )
   val testPutInfo = PutInfo<Unit, ComplexRequest, TestCreatedResponse>(
     summary = "Test put endpoint",
     description = "Put your tests here!",
@@ -116,7 +128,7 @@ object TestResponseInfo {
   val testOptionalParams = GetInfo<OptionalParams, Unit>(
     summary = "No request params and response body",
     description = "testing more",
-    responseInfo = ResponseInfo(HttpStatusCode.NoContent, "Empty")
+    responseInfo = ResponseInfo(HttpStatusCode.NoContent, "Empty", mediaTypes = listOf())
   )
   val polymorphicResponse = GetInfo<Unit, FlibbityGibbit>(
     summary = "All the gibbits",

@@ -34,7 +34,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "great!"
+            "description": "great!",
+            "content": {
+              "application/json": {}
+            }
           }
         },
         "deprecated": false

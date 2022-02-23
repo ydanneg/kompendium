@@ -36,6 +36,8 @@ import io.bkbn.kompendium.core.util.notarizedGetWithPolymorphicErrorResponse
 import io.bkbn.kompendium.core.util.notarizedHeadModule
 import io.bkbn.kompendium.core.util.notarizedOptionsModule
 import io.bkbn.kompendium.core.util.notarizedPatchModule
+import io.bkbn.kompendium.core.util.notarizedPostEmptyResponseWithMediaType
+import io.bkbn.kompendium.core.util.notarizedPostEmptyResponseWithNoMediaType
 import io.bkbn.kompendium.core.util.notarizedPostModule
 import io.bkbn.kompendium.core.util.notarizedPutModule
 import io.bkbn.kompendium.core.util.nullableField
@@ -165,6 +167,14 @@ class KompendiumTest : DescribeSpec({
     }
     it("Can add a generic exception response") {
       openApiTestAllSerializers("generic_exception.json") { notarizedGetWithGenericErrorResponse() }
+    }
+  }
+  describe("Content") {
+    it("Can describe an empty response with media type") {
+      openApiTestAllSerializers("notarized_post_empty_response_with_media_type.json") { notarizedPostEmptyResponseWithMediaType() }
+    }
+    it("Can describe an empty response without media type") {
+      openApiTestAllSerializers("notarized_post_empty_response_with_no_media_type.json") { notarizedPostEmptyResponseWithNoMediaType() }
     }
   }
   describe("Examples") {

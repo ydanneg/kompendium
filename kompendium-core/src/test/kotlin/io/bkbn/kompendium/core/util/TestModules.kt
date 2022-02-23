@@ -99,6 +99,27 @@ fun Application.notarizedPostModule() {
   }
 }
 
+fun Application.notarizedPostEmptyResponseWithMediaType() {
+  routing {
+    route("/test") {
+      notarizedPost(TestResponseInfo.testPostUnitResponseWithMediaType) {
+        call.respond(HttpStatusCode.OK)
+      }
+    }
+  }
+}
+
+
+fun Application.notarizedPostEmptyResponseWithNoMediaType() {
+  routing {
+    route("/test") {
+      notarizedPost(TestResponseInfo.testPostUnitResponseWithNoMediaType) {
+        call.respond(HttpStatusCode.OK)
+      }
+    }
+  }
+}
+
 fun Application.notarizedDeleteModule() {
   routing {
     route("/test") {
